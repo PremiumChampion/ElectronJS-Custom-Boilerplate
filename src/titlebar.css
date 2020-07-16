@@ -1,0 +1,22 @@
+.titleBarContainer {
+    -webkit-app-region: drag;
+    border-bottom: 2px solid black;
+}
+
+.titleBar {
+    padding-left: 1em;
+    width: 100%;
+    background-color: #cececa;
+}
+
+.titleBar * {
+    color: black;
+}
+
+.titleBar> :first-child {
+    margin-right: auto;
+}
+
+.titleBar> :not(:first-child) {
+    -webkit-app-region: no-drag;
+}
