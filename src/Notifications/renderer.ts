@@ -8,25 +8,31 @@ import { initializeIcons } from "@fluentui/react";
 import Footer from "./Footer/Footer";
 import NotificationTitleBar, { iNotificationTitleBarProps } from "./TitleBar/NotificationTitleBar";
 import NotificationBody, { iNotificationBodyProps } from "./NotificationBody/NotificationBody";
-import { notificationsApiRenderer } from "./notificationApiRenderer";
-import { CustomNotification } from "./notificationApiMain";
+import { notificationsApiInternalRender } from "./notificationApiInternalRenderer";
 import { CustomError } from "../helper/CustomError";
-import { ipcMain, ipcRenderer } from "electron";
+import { ipcRenderer } from "electron";
+import { iCustomNotification } from "./interfaces";
+import { NotificationEventNames } from "./EventConstants";
 
 initializeIcons();
 
-ipcRenderer.once("recieve-props", (event: Electron.IpcRendererEvent, guid: string) => {
-    debugger;
-    notificationsApiRenderer.getContents(guid)
-        .then((notification: CustomNotification) => {
-            console.log("sent")
-            if (notification) {
-                ReactDOM.render(React.createElement(NotificationTitleBar, { guid: guid, title: notification.title } as iNotificationTitleBarProps), document.querySelector("#TitleBar"));
-                ReactDOM.render(React.createElement(NotificationBody, { guid: guid } as iNotificationBodyProps), document.querySelector("#Main"));
-                ReactDOM.render(React.createElement(Footer), document.querySelector("#Footer"));
-                notificationsApiRenderer.showNotification(guid);
+ipcRenderer.once(NotificationEventNames.recieveProps, (event: Electron.IpcRendererEvent, guid: string, notification: iCustomNotification) => {
+    if (notification && guid) {
+
+        let inputRequired: boolean;
+
+        if (notification.customAction) {
+            if (notification.customAction.requireInput != null && notification.customAction.requireInput != undefined) {
+                inputRequired = notification.customAction.requireInput;
+            } else {
+                inputRequired = false;
             }
-        }).catch((err: CustomError) => {
-            alert(err.getErrorMessage() + err.getCallerFunction());
-        });
+        } else {
+            inputRequired = false;
+        }
+
+        ReactDOM.render(React.createElement(NotificationTitleBar, { guid, title: notification.title, inputRequired } as iNotificationTitleBarProps), document.querySelector("#TitleBar"));
+        ReactDOM.render(React.createElement(NotificationBody, { guid, notification } as iNotificationBodyProps), document.querySelector("#Main"));
+        ReactDOM.render(React.createElement(Footer), document.querySelector("#Footer"));
+    }
 });

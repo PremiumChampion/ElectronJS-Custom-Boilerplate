@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, StackItem, Text, divProperties } from "@fluentui/react";
+import { Stack, StackItem, Text } from "@fluentui/react";
 import { CustomError } from "../../helper/CustomError";
 import NotificationTitleBarButton, { NotificationTitleBarButtonType } from "./NotificationTitleBarButton";
 
@@ -7,6 +7,7 @@ import NotificationTitleBarButton, { NotificationTitleBarButtonType } from "./No
 export interface iNotificationTitleBarProps {
     title: string;
     guid: string;
+    inputRequired: boolean;
 }
 
 interface iNotificationTitleBarState {
@@ -28,8 +29,10 @@ export default class NotificationTitleBar extends React.Component<iNotificationT
             <div className={"titleBarContainer"}>
                 <Stack className={"titleBar"} horizontal horizontalAlign={"center"}>
                     <StackItem align={"center"} ><Text variant={"medium"}>{this.props.title}</Text></StackItem>
-                    <StackItem><NotificationTitleBarButton guid={this.props.guid} type={NotificationTitleBarButtonType.Close} /></StackItem>
-                    <StackItem><NotificationTitleBarButton guid={this.props.guid} type={NotificationTitleBarButtonType.Hide} /></StackItem>
+                    {!this.props.inputRequired &&
+                        <StackItem><NotificationTitleBarButton guid={this.props.guid} type={NotificationTitleBarButtonType.Close} /></StackItem>
+                    }
+                    {/* <StackItem><NotificationTitleBarButton guid={this.props.guid} type={NotificationTitleBarButtonType.Hide} /></StackItem> */}
                 </Stack>
             </div>
         );

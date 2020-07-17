@@ -1,10 +1,10 @@
 .titleBarContainer {
-    -webkit-app-region: drag;
+    /* -webkit-app-region: drag; */
     border-bottom: 2px solid black;
 }
 
 .titleBar {
-    padding-left: 1em;
+    padding-left: 5px;
     width: 100%;
     background-color: #cececa;
 }
