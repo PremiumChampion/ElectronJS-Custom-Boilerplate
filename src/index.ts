@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron';
-import "./main/windowApiMain";
-import "./main/devApiMain";
+import "./MainProcess/windowApiMain";
+import "./MainProcess/devApiMain";
+import "./Notifications/notificationApiMain"
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -26,6 +27,7 @@ const createWindow = () => {
   });
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  // console.log(NOTIFICATION_WINDOW_WEBPACK_ENTRY);
 };
 
 app.setAppUserModelId(process.execPath)

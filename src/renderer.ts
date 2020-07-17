@@ -2,12 +2,12 @@ import "./index.css";
 import "./titlebar.css"
 import "./main.css"
 import "./footer";
-import Main from './renderer/components/Main/Main';
+import Main from './RendererProcess/components/Main/Main';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { initializeIcons } from "@fluentui/react";
-import TitleBar from "./renderer/components/TitleBar/TitleBar";
-import Footer from "./renderer/components/Footer/Footer";
+import TitleBar from "./RendererProcess/components/TitleBar/TitleBar";
+import Footer from "./RendererProcess/components/Footer/Footer";
 
 initializeIcons();
 

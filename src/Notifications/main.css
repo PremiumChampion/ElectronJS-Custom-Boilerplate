@@ -1,0 +1,18 @@
+.main {
+    background-color: gray;
+    height: 100%;
+}
+
+#Main {
+    height: calc(100% - 34px);
+}
+
+#Main,
+.main {
+    flex: 1 1 auto;
+    display: flex;
+}
+
+.main>* {
+    margin: 0 auto;
+}
