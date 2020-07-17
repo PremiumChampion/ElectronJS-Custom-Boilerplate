@@ -1,6 +1,6 @@
 import { ipcRenderer, ipcMain } from "electron";
 import { Guid } from "guid-typescript";
-import { CustomError } from "./../helper/CustomError";
+import { CustomError } from "../helper/CustomError";
 
 /**
  * Api to interact with the window

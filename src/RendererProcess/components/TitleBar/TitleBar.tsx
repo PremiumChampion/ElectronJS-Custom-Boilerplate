@@ -1,9 +1,9 @@
 import React from "react";
 import { Stack, StackItem, Text, divProperties } from "@fluentui/react";
 import TitleBarButton, { TitleBarButtonType } from "./TitleBarButton";
-import { windowApiRenderer } from "./../../windowApiRender";
-import { CustomError } from "./../../../helper/CustomError";
-import { devApiRenderer } from "./../../devApiRenderer";
+import { windowApiRenderer } from "../../windowApiRender";
+import { CustomError } from "../../../helper/CustomError";
+import { devApiRenderer } from "../../devApiRenderer";
 
 
 export interface iTitleBarProps {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack, StackItem, IconButton } from "@fluentui/react";
-import { windowApiRenderer } from "./../../windowApiRender";
+import { windowApiRenderer } from "../../windowApiRender";
 
 export enum TitleBarButtonType {
     Close, Maximize, Minimize, Hide, DeveloperBar

@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, DefaultButton } from "@fluentui/react";
 import { NotificationsRenderer } from "../../NotificationsRenderer";
-import { CustomError } from "./../../../helper/CustomError";
+import { CustomError } from "../../../helper/CustomError";
 
 export interface MainProps {
 

@@ -1,5 +1,5 @@
 import { ipcMain } from "electron";
-import { mainWindow, isDevelopement } from "./../index";
+import { mainWindow, isDevelopement } from "../index";
 
 ipcMain.on('toggle-dev-tools', (event: Electron.IpcMainEvent) => {
     if (isDevelopement) {
