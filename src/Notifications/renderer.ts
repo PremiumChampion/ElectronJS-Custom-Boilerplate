@@ -12,13 +12,12 @@ import { notificationsApiInternalRender } from "./notificationApiInternalRendere
 import { CustomError } from "../helper/CustomError";
 import { ipcRenderer } from "electron";
 import { iCustomNotification } from "./interfaces";
-import { NotificationEventNames } from "./EventConstants";
+import { NotificationChannelNames } from "./EventConstants";
 
 initializeIcons();
 
-ipcRenderer.once(NotificationEventNames.recieveProps, (event: Electron.IpcRendererEvent, guid: string, notification: iCustomNotification) => {
+ipcRenderer.once(NotificationChannelNames.recieveProps, (event: Electron.IpcRendererEvent, guid: string, notification: iCustomNotification) => {
     if (notification && guid) {
-
         let inputRequired: boolean;
 
         if (notification.customAction) {

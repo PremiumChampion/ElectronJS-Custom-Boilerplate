@@ -27,7 +27,6 @@ const createWindow = () => {
   });
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-  // console.log(NOTIFICATION_WINDOW_WEBPACK_ENTRY);
 
   mainWindow.on("closed",()=>{
     app.quit();

@@ -1,8 +1,21 @@
 import { Guid } from "guid-typescript";
 import { ipcRenderer } from "electron";
 
+/**
+ * api to make developement easier
+ *
+ * @export
+ * @class devApiRenderer
+ */
 export class devApiRenderer {
 
+    /**
+     *queries if this is a developement enviroment
+     *
+     * @static
+     * @returns {Promise<boolean>}
+     * @memberof devApiRenderer
+     */
     public static isDevelopement(): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
 
@@ -12,5 +25,15 @@ export class devApiRenderer {
             });
             ipcRenderer.send('is-developement', guid);
         });
+    }
+
+    /**
+     *toggles the Developer bar
+     *
+     * @static
+     * @memberof devApiRenderer
+     */
+    public static toggleDeveloperBar(){
+        ipcRenderer.send('toggle-dev-tools');
     }
 }

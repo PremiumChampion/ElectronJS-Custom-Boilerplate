@@ -1,5 +1,12 @@
 import React from "react";
 import { Text, Stack} from "@fluentui/react";
+/**
+ * the footer of the notification
+ *
+ * @export
+ * @class Footer
+ * @extends {React.Component<{}, {}>}
+ */
 export default class Footer extends React.Component<{}, {}> {
 
     public render(): JSX.Element {

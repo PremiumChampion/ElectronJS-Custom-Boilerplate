@@ -6,27 +6,65 @@ import { CustomError } from "../../../helper/CustomError";
 import { devApiRenderer } from "../../devApiRenderer";
 
 
+/**
+ * The properties of the Title bar
+ *
+ * @export
+ * @interface iTitleBarProps
+ */
 export interface iTitleBarProps {
+    /**
+     * the title of the window
+     *
+     * @type {string}
+     * @memberof iTitleBarProps
+     */
     title: string;
 }
 
+/**
+ * the state of the title bar
+ *
+ * @interface iTitleBarState
+ */
 interface iTitleBarState {
+    /**
+     *indicates if the window is maximised or not
+     *
+     * @type {boolean}
+     * @memberof iTitleBarState
+     */
     isMaximised: boolean;
+    /**
+     * Constitutes the user-defined error, if it has occurred
+     *
+     * @type {CustomError}
+     * @memberof iTitleBarState
+     */
     err: CustomError;
-    windowSizeErrorCount: number;
+    /**
+     *indicates if the toggle-dev-tools butten should be shown
+     *
+     * @type {boolean}
+     * @memberof iTitleBarState
+     */
     showDevToolsButton: boolean;
 }
 
+/**
+ * the title bar of the window
+ *
+ * @export
+ * @class TitleBar
+ * @extends {React.Component<iTitleBarProps, iTitleBarState>}
+ */
 export default class TitleBar extends React.Component<iTitleBarProps, iTitleBarState> {
-
-    private windowDrag: boolean = false;
 
     constructor(props: iTitleBarProps) {
         super(props);
         this.state = {
             isMaximised: false,
             err: null,
-            windowSizeErrorCount: 0,
             showDevToolsButton: false
         };
 
@@ -68,13 +106,19 @@ export default class TitleBar extends React.Component<iTitleBarProps, iTitleBarS
         this.getWindowSize();
     }
 
+    /**
+     * queries the window size and sets the state accordingly
+     *
+     * @private
+     * @memberof TitleBar
+     */
     private getWindowSize() {
         windowApiRenderer.getWindowSize()
             .then(isMaximised => {
-                this.setState({ isMaximised: isMaximised, windowSizeErrorCount: 0 });
+                this.setState({ isMaximised: isMaximised });
             })
             .catch((err: CustomError) => {
-                this.setState({ err: err, windowSizeErrorCount: this.state.windowSizeErrorCount + 1 });
+                this.setState({ err: err });
             });
     }
 

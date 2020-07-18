@@ -1,15 +1,44 @@
 import React from "react";
-import { Text, Stack, Toggle, DefaultButton, IToggle, IRefObject, PrimaryButton, Dropdown, IDropdownOption, TextField } from "@fluentui/react";
+import { Text, Stack, Toggle, DefaultButton, IToggle, IRefObject, PrimaryButton, Dropdown, IDropdownOption, TextField, IStackStyles, IStackProps } from "@fluentui/react";
 import { notificationsApiInternalRender } from "../notificationApiInternalRenderer";
 import { iCustomNotification, iBooleanInputOptions, iTextInputOptions, iChoiceInputOptions } from "../interfaces";
 import { customActionInputType, BooleanDisplayType } from "../enums";
 
+const defaultStackProps: IStackProps = {
+    gap: 5
+}
+
+/**
+ * Properties of the notification button
+ *
+ * @export
+ * @interface iNotificationBodyProps
+ */
 export interface iNotificationBodyProps {
+    /**
+     * the guid of the notification
+     *
+     * @type {string}
+     * @memberof iNotificationBodyProps
+     */
     guid: string;
+    /**
+     * the notification to display to the user
+     *
+     * @type {iCustomNotification}
+     * @memberof iNotificationBodyProps
+     */
     notification: iCustomNotification;
 }
 export interface iNotificationBodyState { }
 
+/**
+ * the notification body
+ *
+ * @export
+ * @class NotificationBody
+ * @extends {React.Component<iNotificationBodyProps, iNotificationBodyState>}
+ */
 export default class NotificationBody extends React.Component<iNotificationBodyProps, iNotificationBodyState> {
 
     private BooleanResult: boolean = true;
@@ -44,11 +73,11 @@ export default class NotificationBody extends React.Component<iNotificationBodyP
                     <Text variant={"large"}>{this.props.notification.body}</Text>
                 }
                 {this.props.notification.customAction != null &&
-                    <>
+                    <div>
                         {this.props.notification.customAction.type == customActionInputType.boolean &&
-                            <>
+                            <div>
                                 {BooleanInputOptions.displayType == BooleanDisplayType.Toggle &&
-                                    <Stack>
+                                    <Stack {...defaultStackProps} >
                                         <Text variant={"large"}>{this.props.notification.body}</Text>
                                         <Toggle
                                             onText={BooleanInputOptions.trueLabel}
@@ -62,31 +91,31 @@ export default class NotificationBody extends React.Component<iNotificationBodyP
                                     </Stack>
                                 }
                                 {BooleanInputOptions.displayType == BooleanDisplayType.Buttons &&
-                                    <Stack>
+                                    <Stack {...defaultStackProps}>
                                         <Text variant={"large"}>{this.props.notification.body}</Text>
-                                        <Stack horizontal>
+                                        <Stack horizontal {...defaultStackProps}>
                                             <PrimaryButton onClick={this.sendBooleanResult.bind(this, true)} text={BooleanInputOptions.trueLabel} />
                                             <DefaultButton onClick={this.sendBooleanResult.bind(this, false)} text={BooleanInputOptions.falseLabel} />
                                         </Stack>
                                     </Stack >
                                 }
                                 {BooleanInputOptions.displayType == BooleanDisplayType.DropDown &&
-                                    <Stack>
+                                    <Stack {...defaultStackProps}>
                                         <Text variant={"large"}>{this.props.notification.body}</Text>
                                         <Dropdown
                                             options={[{ key: 1, text: BooleanInputOptions.trueLabel }, { key: 0, text: BooleanInputOptions.falseLabel }]}
                                             onChange={this.handleBooleanDropdownChange.bind(this, undefined)}
-                                            defaultSelectedKey={1}
+                                            defaultSelectedKey={0}
 
                                         />
                                         <DefaultButton onClick={this.sendBooleanResult.bind(this, undefined)} text={this.props.notification.customAction.submitButtonLabel} />
                                     </Stack>
                                 }
-                            </>
+                            </div>
                         }
                         {this.props.notification.customAction.type == customActionInputType.text &&
-                            <>
-                                <Stack>
+                            <div>
+                                <Stack {...defaultStackProps}>
                                     <Text variant={"large"}>{this.props.notification.body}</Text>
                                     <TextField
                                         onChange={this.handleTextInput.bind(this)}
@@ -97,20 +126,22 @@ export default class NotificationBody extends React.Component<iNotificationBodyP
                                     />
                                     <DefaultButton onClick={this.sendTextResult.bind(this)} text={this.props.notification.customAction.submitButtonLabel} />
                                 </Stack>
-                            </>
+                            </div>
                         }
                         {this.props.notification.customAction.type == customActionInputType.choice &&
-                            <Stack>
-                                <Text variant={"large"}>{this.props.notification.body}</Text>
-                                <Dropdown
-                                    options={ChoiceInputOptions.options.map(value => ({ key: value.key, text: value.text }))}
-                                    onChange={this.handleChoiceDropdownChange.bind(this)}
-                                    defaultSelectedKey={ChoiceInputOptions.options[0].key}
-                                />
-                                <DefaultButton onClick={this.sendChoiceResult.bind(this)} text={this.props.notification.customAction.submitButtonLabel} />
-                            </Stack>
+                            <div>
+                                <Stack {...defaultStackProps}>
+                                    <Text variant={"large"}>{this.props.notification.body}</Text>
+                                    <Dropdown
+                                        options={ChoiceInputOptions.options.map(value => ({ key: value.key, text: value.text }))}
+                                        onChange={this.handleChoiceDropdownChange.bind(this)}
+                                        defaultSelectedKey={ChoiceInputOptions.options[0].key}
+                                    />
+                                    <DefaultButton onClick={this.sendChoiceResult.bind(this)} text={this.props.notification.customAction.submitButtonLabel} />
+                                </Stack>
+                            </div>
                         }
-                    </>
+                    </div>
                 }
             </div>
         );

@@ -86,13 +86,5 @@ export class windowApiRenderer {
 
         });
     }
-    /**
-     * toggles the developer bar
-     *
-     * @static
-     * @memberof windowApiRenderer
-     */
-    public static toggleDeveloperBar(){
-        ipcRenderer.send('toggle-dev-tools');
-    }
+    
 }

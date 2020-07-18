@@ -1,9 +1,43 @@
 
+/**
+ * Defines the type of the Boolean input option
+ *
+ * @export
+ * @enum {number}
+ */
 export enum BooleanDisplayType {
-    Buttons, Toggle, DropDown
+    /**
+     * Shows the BooleanOption as Buttons
+     */
+    Buttons,
+    /**
+     *Shows the BooleanOption as Toggle
+     */
+    Toggle,
+    /**
+     * Shows the BooleanOption as Dropdown
+     */
+    DropDown
 }
 
 
+/**
+ * The custom Actions input types
+ *
+ * @export
+ * @enum {number}
+ */
 export enum customActionInputType {
-    text, boolean, choice
+    /**
+     * Text input option
+     */
+    text, 
+    /**
+     * Boolean input option
+     */
+    boolean, 
+    /**
+     * Choice input option
+     */
+    choice
 }
