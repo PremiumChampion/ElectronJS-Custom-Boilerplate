@@ -34,10 +34,15 @@ export interface iNotificationTitleBarProps {
     inputRequired: boolean;
 }
 
+/**
+ * The state of the notificationTitle bar
+ *
+ * @interface iNotificationTitleBarState
+ */
 interface iNotificationTitleBarState { }
 
 /**
- * the notification title bar
+ * the notification title bar component
  *
  * @export
  * @class NotificationTitleBar
@@ -53,7 +58,7 @@ export default class NotificationTitleBar extends React.Component<iNotificationT
         return (
             <div className={"titleBarContainer"}>
                 <Stack className={"titleBar"} horizontal horizontalAlign={"center"}>
-                    <StackItem align={"center"} ><Text variant={"medium"}>{this.props.title}</Text></StackItem>
+                    <StackItem align={"center"} ><Text nowrap variant={"medium"}>{this.props.title}</Text></StackItem>
                     {!this.props.inputRequired &&
                         <StackItem><NotificationTitleBarButton guid={this.props.guid} type={NotificationTitleBarButtonType.Close} /></StackItem>
                     }

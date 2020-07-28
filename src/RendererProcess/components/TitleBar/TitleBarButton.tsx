@@ -67,7 +67,7 @@ export default class TitleBarButton extends React.Component<iTitleBarButtonProps
         return (
             <>
                 {this.props.type == TitleBarButtonType.Close &&
-                    <IconButton iconProps={{ iconName: "ChromeClose" }} title={"Fenster schließen"} onClick={windowApiRenderer.close.bind(undefined, false)} />
+                    <IconButton className="closeButton" iconProps={{ iconName: "ChromeClose" }} title={"Fenster schließen"} onClick={windowApiRenderer.close.bind(undefined, false)} />
                 }
                 {this.props.type == TitleBarButtonType.Hide &&
                     <IconButton iconProps={{ iconName: "ChromeMinimize" }} title={"Fenster minimieren"} onClick={windowApiRenderer.hide.bind(undefined)} />

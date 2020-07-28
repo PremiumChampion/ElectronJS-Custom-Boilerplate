@@ -4,13 +4,22 @@
 }
 
 .titleBar {
+    -webkit-user-select: none;
     padding-left: 1em;
     width: 100%;
     background-color: #cececa;
 }
 
-.titleBar * {
+.titleBar i {
     color: black;
+}
+
+.titleBar .closeButton:hover {
+    background-color: red;
+}
+
+.titleBar .closeButton:hover i {
+    color: white !important;
 }
 
 .titleBar> :first-child {

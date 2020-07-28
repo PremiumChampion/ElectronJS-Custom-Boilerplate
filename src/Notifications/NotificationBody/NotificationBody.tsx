@@ -41,7 +41,7 @@ export interface iNotificationBodyState { }
  */
 export default class NotificationBody extends React.Component<iNotificationBodyProps, iNotificationBodyState> {
 
-    private BooleanResult: boolean = true;
+    private BooleanResult: boolean = false;
     private TextResult: string = "";
     private ChoiceResult: { key: string, text: string };
 
@@ -84,7 +84,7 @@ export default class NotificationBody extends React.Component<iNotificationBodyP
                                             onAriaLabel={BooleanInputOptions.trueLabel}
                                             offText={BooleanInputOptions.falseLabel}
                                             offAriaLabel={BooleanInputOptions.falseLabel}
-                                            defaultChecked={false}
+                                            defaultChecked={this.BooleanResult}
                                             onChange={this.handleBooleanToggleChange.bind(this)}
                                         />
                                         <DefaultButton onClick={this.sendBooleanResult.bind(this, undefined)} text={this.props.notification.customAction.submitButtonLabel} />
@@ -104,9 +104,8 @@ export default class NotificationBody extends React.Component<iNotificationBodyP
                                         <Text variant={"large"}>{this.props.notification.body}</Text>
                                         <Dropdown
                                             options={[{ key: 1, text: BooleanInputOptions.trueLabel }, { key: 0, text: BooleanInputOptions.falseLabel }]}
-                                            onChange={this.handleBooleanDropdownChange.bind(this, undefined)}
+                                            onChange={this.handleBooleanDropdownChange.bind(this)}
                                             defaultSelectedKey={0}
-
                                         />
                                         <DefaultButton onClick={this.sendBooleanResult.bind(this, undefined)} text={this.props.notification.customAction.submitButtonLabel} />
                                     </Stack>
@@ -161,7 +160,7 @@ export default class NotificationBody extends React.Component<iNotificationBodyP
     }
 
     private handleBooleanDropdownChange(event: React.FormEvent<HTMLDivElement>, option?: IDropdownOption, index?: number) {
-        this.BooleanResult = option.key == 1;
+        this.BooleanResult = (option.key == 1);
     }
 
     private sendBooleanResult(result?: boolean) {

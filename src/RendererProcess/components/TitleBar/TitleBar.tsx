@@ -74,7 +74,7 @@ export default class TitleBar extends React.Component<iTitleBarProps, iTitleBarS
         return (
             <div className={"titleBarContainer"}>
                 <Stack className={"titleBar"} horizontal horizontalAlign={"center"}>
-                    <StackItem align={"center"} ><Text variant={"mediumPlus"}>{this.props.title}</Text></StackItem>
+                    <StackItem align={"center"} ><Text nowrap variant={"mediumPlus"}>{this.props.title}</Text></StackItem>
                     {this.state.showDevToolsButton &&
                         <StackItem ><TitleBarButton type={TitleBarButtonType.DeveloperBar} /></StackItem>
                     }

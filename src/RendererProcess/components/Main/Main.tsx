@@ -60,7 +60,7 @@ export default class Main extends React.Component<MainProps, MainState> {
                 } as iTextInputOptions,
                 submitButtonLabel: "Submit",
                 type: null,
-                requireInput: true
+                requireInput: false
             } as iCustomAction
         ).then(console.log).catch((err: CustomError) => { console.log(err.getErrorMessage()) });
 
@@ -76,7 +76,7 @@ export default class Main extends React.Component<MainProps, MainState> {
                 } as iBooleanInputOptions,
                 submitButtonLabel: "Submit",
                 type: null,
-                requireInput: true
+                requireInput: false
             } as iCustomAction
         ).then(console.log).catch((err: CustomError) => { console.log(err.getErrorMessage()) });
     }
@@ -119,12 +119,16 @@ export default class Main extends React.Component<MainProps, MainState> {
                 inputOptions: {
                     options: [
                         { key: "A", text: "A" },
-                        { key: "B", text: "B" }
+                        { key: "B", text: "B" },
+                        { key: "C", text: "C" },
+                        { key: "D", text: "D" },
+                        { key: "E", text: "E" },
+                        { key: "F", text: "F" }
                     ]
                 } as iChoiceInputOptions,
                 submitButtonLabel: "Submit",
                 type: null,
-                requireInput: true
+                requireInput: false
             } as iCustomAction
         ).then(console.log).catch((err: CustomError) => { console.log(err.getErrorMessage()) });
 

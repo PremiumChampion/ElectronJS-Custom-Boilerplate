@@ -16,6 +16,7 @@ import { NotificationChannelNames } from "./EventConstants";
 
 initializeIcons();
 
+// Recieves the properties from the main process
 ipcRenderer.once(NotificationChannelNames.recieveProps, (event: Electron.IpcRendererEvent, guid: string, notification: iCustomNotification) => {
     if (notification && guid) {
         let inputRequired: boolean;
@@ -30,8 +31,11 @@ ipcRenderer.once(NotificationChannelNames.recieveProps, (event: Electron.IpcRend
             inputRequired = false;
         }
 
+        // Renders the title-bar
         ReactDOM.render(React.createElement(NotificationTitleBar, { guid, title: notification.title, inputRequired } as iNotificationTitleBarProps), document.querySelector("#TitleBar"));
+        // Renders the notification-body
         ReactDOM.render(React.createElement(NotificationBody, { guid, notification } as iNotificationBodyProps), document.querySelector("#Main"));
+        // Renders the notifiaction-footer
         ReactDOM.render(React.createElement(Footer), document.querySelector("#Footer"));
     }
 });
