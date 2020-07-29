@@ -86,7 +86,7 @@ ipcMain.on(NotificationChannelNames.createNotification, (event: Electron.IpcMain
         alwaysOnTop: true,
         frame: false,
         title: notification.title,
-        opacity: 0.95
+        // transparent: true
     });
 
 

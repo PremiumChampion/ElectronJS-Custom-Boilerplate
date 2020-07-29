@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Stack, Toggle, DefaultButton, IToggle, IRefObject, PrimaryButton, Dropdown, IDropdownOption, TextField, IStackStyles, IStackProps } from "@fluentui/react";
+import { Text, Stack, Toggle, DefaultButton, IToggle, IRefObject, PrimaryButton, Dropdown, IDropdownOption, TextField, IStackStyles, IStackProps, IconButton } from "@fluentui/react";
 import { notificationsApiInternalRender } from "../notificationApiInternalRenderer";
 import { iCustomNotification, iBooleanInputOptions, iTextInputOptions, iChoiceInputOptions } from "../interfaces";
 import { customActionInputType, BooleanDisplayType } from "../enums";
@@ -116,14 +116,20 @@ export default class NotificationBody extends React.Component<iNotificationBodyP
                             <div>
                                 <Stack {...defaultStackProps}>
                                     <Text variant={"large"}>{this.props.notification.body}</Text>
-                                    <TextField
-                                        onChange={this.handleTextInput.bind(this)}
-                                        placeholder={TextInputOptions.placeholder}
-                                        maxLength={TextInputOptions.maxLength}
-                                        deferredValidationTime={200}
-                                        onGetErrorMessage={this.vaidateTextInput.bind(this)}
-                                    />
-                                    <DefaultButton onClick={this.sendTextResult.bind(this)} text={this.props.notification.customAction.submitButtonLabel} />
+                                    <Stack horizontal styles={{ root: { width: "100%" } }}>
+                                        <Stack.Item grow={3} >
+                                            <TextField
+                                                onChange={this.handleTextInput.bind(this)}
+                                                placeholder={TextInputOptions.placeholder}
+                                                maxLength={TextInputOptions.maxLength}
+                                                deferredValidationTime={200}
+                                                onGetErrorMessage={this.vaidateTextInput.bind(this)}
+                                            />
+                                        </Stack.Item>
+                                        <Stack.Item >
+                                            <IconButton onClick={this.sendTextResult.bind(this)} iconProps={{ iconName: "Send" }} />
+                                        </Stack.Item>
+                                    </Stack>
                                 </Stack>
                             </div>
                         }
