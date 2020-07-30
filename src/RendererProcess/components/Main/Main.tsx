@@ -2,7 +2,6 @@ import React from "react";
 import { Text, DefaultButton, Stack } from "@fluentui/react";
 import { CustomNotification } from "../../NotificationsRenderer";
 import { CustomError } from "../../../helper/CustomError";
-import { ipcRenderer } from "electron";
 import { Guid } from "guid-typescript";
 import { iCustomAction, iTextInputOptions, iBooleanInputOptions, iChoiceInputOptions } from "./../../../Notifications/interfaces";
 import { BooleanDisplayType } from "./../../../Notifications/enums";
@@ -36,6 +35,7 @@ export default class Main extends React.Component<MainProps, MainState> {
                     <DefaultButton onClick={this.sendBooleanToggleNotification.bind(this)}>GetBooleanToggleInput</DefaultButton>
                     <DefaultButton onClick={this.sendBooleanDropDownNotification.bind(this)}>GetBooleanDropDownInput</DefaultButton>
                     <DefaultButton onClick={this.sendChoiceNotification.bind(this)}>GetChoiceInput</DefaultButton>
+                    <DefaultButton onClick={this.SendMail.bind(this)}>SendMail</DefaultButton>
                 </Stack>
             </div>
         );
@@ -133,5 +133,24 @@ export default class Main extends React.Component<MainProps, MainState> {
             } as iCustomAction
         ).then(console.log).catch((err: CustomError) => { console.log(err.getErrorMessage()) });
 
+    }
+
+    private SendMail() {
+        this.props.GraphClient.api("/me/sendMail").post({
+            "message": {
+                "subject": "Meet for lunch?",
+                "body": {
+                    "contentType": "Text",
+                    "content": "The new cafeteria is open."
+                },
+                "toRecipients": [
+                    {
+                        "emailAddress": {
+                            "address": "" // TODO: Enter your E-Mail here 
+                        }
+                    }
+                ]
+            }
+        })
     }
 }
