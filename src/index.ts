@@ -1,7 +1,8 @@
 import { app, BrowserWindow } from 'electron';
 import "./MainProcess/windowApiMain";
 import "./MainProcess/devApiMain";
-import "./Notifications/notificationApiInternalMain"
+import "./Notifications/notificationApiInternalMain";
+import "./MainProcess/graph";
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
