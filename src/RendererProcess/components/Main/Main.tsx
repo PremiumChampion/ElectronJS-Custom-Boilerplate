@@ -6,9 +6,10 @@ import { ipcRenderer } from "electron";
 import { Guid } from "guid-typescript";
 import { iCustomAction, iTextInputOptions, iBooleanInputOptions, iChoiceInputOptions } from "./../../../Notifications/interfaces";
 import { BooleanDisplayType } from "./../../../Notifications/enums";
+import { Client } from "@microsoft/microsoft-graph-client";
 
 export interface MainProps {
-
+    GraphClient: Client;
 }
 
 interface MainState {

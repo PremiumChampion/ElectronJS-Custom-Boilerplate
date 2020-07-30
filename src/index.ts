@@ -2,11 +2,16 @@ import { app, BrowserWindow } from 'electron';
 import "./MainProcess/windowApiMain";
 import "./MainProcess/devApiMain";
 import "./Notifications/notificationApiInternalMain";
-import "./MainProcess/graph";
+import "./MainProcess/MicrosoftAuthenticationMain";
+import { authenticateUser, setAccessToken } from "./MainProcess/MicrosoftAuthenticationMain";
+import * as env from "dotenv";
+
+env.config();
+
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 
+// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
 }
@@ -28,13 +33,19 @@ const createWindow = () => {
     // transparent: true,
     frame: false,
     acceptFirstMouse: true,
+    show: false
   });
-  // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  mainWindow.on("closed",()=>{
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.show();
+  });
+
+  mainWindow.on("closed", () => {
     app.quit();
   });
+
+  // and load the index.html of the app.
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 };
 
 app.setAppUserModelId(process.execPath)
@@ -42,7 +53,13 @@ app.setAppUserModelId(process.execPath)
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+  
+  createWindow();
+  // authenticateUser().then((accessToken) => {
+  //   setAccessToken(accessToken);
+  // });
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -60,6 +77,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.

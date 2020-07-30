@@ -30,5 +30,3 @@ ipcMain.on('show-window', (event: Electron.IpcMainEvent) => {
 ipcMain.on("get-window-size", (event: Electron.IpcMainEvent, guid: string) => {
     event.sender.send(guid, mainWindow.isMaximized());
 });
-
-
