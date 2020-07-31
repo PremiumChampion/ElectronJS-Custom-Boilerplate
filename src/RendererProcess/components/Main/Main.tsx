@@ -138,10 +138,10 @@ export default class Main extends React.Component<MainProps, MainState> {
     private SendMail() {
         this.props.GraphClient.api("/me/sendMail").post({
             "message": {
-                "subject": "Meet for lunch?",
+                "subject": "", //TODO: Enter the Subject of your email
                 "body": {
-                    "contentType": "Text",
-                    "content": "The new cafeteria is open."
+                    "contentType": "Text", //TODO: Adjust the contenttype of youre message 
+                    "content": "" //TODO: Enter your message here
                 },
                 "toRecipients": [
                     {
@@ -151,6 +151,6 @@ export default class Main extends React.Component<MainProps, MainState> {
                     }
                 ]
             }
-        })
+        });
     }
 }

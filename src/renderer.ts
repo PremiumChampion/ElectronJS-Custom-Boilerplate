@@ -10,12 +10,12 @@ import TitleBar from "./RendererProcess/components/TitleBar/TitleBar";
 import Footer from "./RendererProcess/components/Footer/Footer";
 import { ipcRenderer } from "electron";
 import { AuthenticationProvider, AuthenticationProviderOptions, ClientOptions, Client } from "@microsoft/microsoft-graph-client";
-import { MicrosoftAuthenticationRenderer } from "./RendererProcess/MicrosoftAuthenticationRenderer";
+import { MicrosoftAuthenticationProvider } from "./RendererProcess/MicrosoftAuthenticationRenderer";
 
 initializeIcons();
 
 let clientOptions: ClientOptions = {
-    authProvider: new MicrosoftAuthenticationRenderer(),
+    authProvider: new MicrosoftAuthenticationProvider(),
 };
 const client = Client.initWithMiddleware(clientOptions);
 
