@@ -1,6 +1,4 @@
 import { ipcRenderer } from "electron";
-import { CustomError } from "../helper/CustomError";
-import { iCustomNotification } from "./interfaces";
 import { NotificationChannelNames } from "./EventConstants";
 
 /**

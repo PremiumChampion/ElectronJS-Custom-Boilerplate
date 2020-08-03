@@ -6,7 +6,7 @@ import { CustomNotification } from "../../NotificationsRenderer";
 import { BooleanDisplayType } from "./../../../Notifications/enums";
 import { iBooleanInputOptions, iChoiceInputOptions, iCustomAction, iTextInputOptions } from "./../../../Notifications/interfaces";
 import { MicrosoftAuthenticationProvider } from "./../../MicrosoftAuthenticationRenderer";
-
+import "./main.css"
 /**
  * The Properties for the Main Component
  *

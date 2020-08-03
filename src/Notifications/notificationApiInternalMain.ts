@@ -1,7 +1,7 @@
 import { BrowserWindow, ipcMain, screen } from "electron";
-import { isDevelopement, mainWindow } from "../index";
-import { iCustomNotification } from "./interfaces";
+import { isDevelopement } from "../index";
 import { NotificationChannelNames } from "./EventConstants";
+import { iCustomNotification } from "./interfaces";
 declare const NOTIFICATION_WINDOW_WEBPACK_ENTRY: any;
 
 

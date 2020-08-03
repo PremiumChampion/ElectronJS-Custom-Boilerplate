@@ -2,7 +2,7 @@ import React from "react";
 import { Stack, StackItem, Text } from "@fluentui/react";
 import { CustomError } from "../../helper/CustomError";
 import NotificationTitleBarButton, { NotificationTitleBarButtonType } from "./NotificationTitleBarButton";
-
+import "./titlebar.css"
 
 /**
  * Defines the title bar of the notificaation
