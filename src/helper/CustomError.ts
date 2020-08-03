@@ -1,3 +1,6 @@
+import { devApiRenderer } from "../RendererProcess/devApiRenderer";
+import { isRendererProcess } from "./ProcessDetection";
+
 /**
  * A class to help standardise error handling
  *
@@ -42,10 +45,12 @@ export class CustomError {
         this.atFunction = atFunction;
         this.originalError = originalError;
 
-        if (true) {
-            console.error(`${message} at Function ${atFunction}`);
+        if (isRendererProcess()) {
+            if (devApiRenderer.isDevelopement()) console.error(`${message} at Function ${atFunction}`);
+        } else {
+            console.log(`${message} at Function ${atFunction}`);
         }
-        
+
     }
 
     /**

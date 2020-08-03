@@ -1,6 +1,6 @@
-import { ipcRenderer, ipcMain } from "electron";
-import { Guid } from "guid-typescript";
+import { ipcRenderer } from "electron";
 import { CustomError } from "../helper/CustomError";
+import { GuidHelper } from "../helper/GuidHelper";
 
 /**
  * Api to interact with the window
@@ -67,7 +67,7 @@ export class windowApiRenderer {
     public static getWindowSize(): Promise<boolean> {
         return new Promise<boolean>((resolve, reject) => {
 
-            let guid: string = Guid.create().toString() + Guid.create().toString();
+            let guid = GuidHelper.createCustomGuid();
 
             // declares a private channel
             let listener: Electron.IpcRenderer = ipcRenderer.once(guid, (event: Electron.IpcRendererEvent, isMaximised: boolean) => {
@@ -81,7 +81,7 @@ export class windowApiRenderer {
             // a timout which fires if the Main process takes too long to respond
             let timeout = setTimeout(() => {
                 listener.removeListener(guid, () => { });
-                reject(new CustomError("Ein Timeout ist beim Abrufen der Fenstergröße aufgetreten. Reagiert die Anwendung vielleicht nicht?", "public static getWindowSize(): Promise<boolean>", new Error("Timeout fired")))
+                reject(new CustomError("A timeout has occurred while retrieving the window size. Does the application perhaps not react?", "public static getWindowSize(): Promise<boolean>", new Error("Timeout fired")))
             }, 3000);
 
         });

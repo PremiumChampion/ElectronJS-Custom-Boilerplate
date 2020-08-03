@@ -1,6 +1,6 @@
 import { BrowserWindow, ipcMain, session } from "electron";
-import { CustomError } from "./../helper/CustomError";
 import { mainWindow } from "../index";
+import { CustomError } from "./../helper/CustomError";
 
 let accessToken: string = null;
 
@@ -52,24 +52,29 @@ export interface UserAuthenticaton {
 */
 export const authenticateUser: () => Promise<UserAuthenticaton> = () => {
     return new Promise<UserAuthenticaton>((resolve, reject) => {
+
+        let authenticated: boolean = false;
+
         let authWindow = new BrowserWindow(
             {
-                alwaysOnTop: true, // keeps this window on top of others
+                alwaysOnTop: true,
                 modal: true,
                 autoHideMenuBar: true,
                 parent: mainWindow,
                 frame: true,
                 show: false,
                 webPreferences: {
-                    nodeIntegration: false, // No need to specify these if Electron v4+ but showing for demo
-                    contextIsolation: true, // we can isolate this window
+                    nodeIntegration: false,
+                    contextIsolation: true,
                     devTools: false
-                },
-
+                }
             }
         );
 
         authWindow.on('closed', () => {
+            if (!authenticated) {
+                reject(new CustomError("Authentication aborted by the user", "export const authenticateUser: () => Promise<UserAuthenticaton>", new Error("Authentication aborted by the user")));
+            }
             authWindow = null;
         });
 
@@ -90,6 +95,7 @@ export const authenticateUser: () => Promise<UserAuthenticaton> = () => {
             var url = details.url;
             let accessToken = url.match(/\#(?:access_token)\=([\S\s]*?)\&/)[1];
             let expirationTime = Number(url.match(/expires_in=\d*&/)[0].replace(/expires_in=/, "").replace(/&/, ""));
+            authenticated = true;
             authWindow.close();
             resolve({ accessToken, expirationTime });
         });
@@ -106,12 +112,16 @@ ipcMain.on("get-access-token", (event: Electron.IpcMainEvent, guid: string) => {
                 setTimeout(() => { setAccessToken(null) }, (UserAuthentication.expirationTime - 1) * 1000)
                 event.sender.send(guid, UserAuthentication.accessToken);
             }).catch((err) => {
-                event.sender.send(guid, null);
+                event.sender.send(guid, err);
             });
     }
 });
 
-
+/**
+ * Logs the user off
+ *  
+ * @returns a Promise which gets resolve when the user logoff was successfull and rejected if the action was not successfull
+ */
 export const logoutUser: () => Promise<null> = () => {
     return new Promise<null>((resolve, reject) => {
         let logoutWindow = new BrowserWindow(
@@ -123,8 +133,8 @@ export const logoutUser: () => Promise<null> = () => {
                 frame: true,
                 show: false,
                 webPreferences: {
-                    nodeIntegration: false, // No need to specify these if Electron v4+ but showing for demo
-                    contextIsolation: true, // we can isolate this window
+                    nodeIntegration: false,
+                    contextIsolation: true,
                     devTools: false
                 },
 
@@ -142,7 +152,7 @@ export const logoutUser: () => Promise<null> = () => {
         logoutWindow.webContents.on('did-finish-load', () => {
             // logoutWindow.show();
         });
-        if (process.env.TENANT_ID && process.env.CLIENT_ID && process.env.RESOURCE && process.env.REDIRECT_URL) {
+        if (process.env.CLIENT_ID && process.env.REDIRECT_URL) {
             logoutWindow.loadURL(`https://login.microsoftonline.com/common/oauth2/logout?client_id=${process.env.CLIENT_ID}&response_mode=form_post&post_logout_redirect_uri=${process.env.REDIRECT_URL}`)
         } else {
             reject(new CustomError("One or more enviroment variables are undefined. Please adjust production or developement eviroment and try running microsoft logout again", "export const logoutUser: () => Promise<null>", new Error("Enviroment variables are undefined")));
@@ -158,5 +168,9 @@ export const logoutUser: () => Promise<null> = () => {
 
 ipcMain.on("logout", (event: Electron.IpcMainEvent, guid: string) => {
     setAccessToken(null);
-    logoutUser().then(() => { event.sender.send(guid, null) });
+    logoutUser()
+        .then((_) => { event.sender.send(guid, null) })
+        .catch(err => { event.sender.send(guid, err) });
 });
+
+

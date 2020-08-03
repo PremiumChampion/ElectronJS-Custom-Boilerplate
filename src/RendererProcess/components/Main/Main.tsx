@@ -1,11 +1,10 @@
-import React from "react";
-import { Text, DefaultButton, Stack } from "@fluentui/react";
-import { CustomNotification } from "../../NotificationsRenderer";
-import { CustomError } from "../../../helper/CustomError";
-import { Guid } from "guid-typescript";
-import { iCustomAction, iTextInputOptions, iBooleanInputOptions, iChoiceInputOptions } from "./../../../Notifications/interfaces";
-import { BooleanDisplayType } from "./../../../Notifications/enums";
+import { DefaultButton, Stack } from "@fluentui/react";
 import { Client } from "@microsoft/microsoft-graph-client";
+import React from "react";
+import { CustomError } from "../../../helper/CustomError";
+import { CustomNotification } from "../../NotificationsRenderer";
+import { BooleanDisplayType } from "./../../../Notifications/enums";
+import { iBooleanInputOptions, iChoiceInputOptions, iCustomAction, iTextInputOptions } from "./../../../Notifications/interfaces";
 import { MicrosoftAuthenticationProvider } from "./../../MicrosoftAuthenticationRenderer";
 
 export interface MainProps {
@@ -49,18 +48,16 @@ export default class Main extends React.Component<MainProps, MainState> {
 
     }
     private sendInformationNotification() {
-        let guid: string = Guid.create().toString() + Guid.create().toString();
-        CustomNotification.createInformationNotification(guid, "Example Title", "This is my message");
+        CustomNotification.createInformationNotification("Example Title", "This is my message");
     }
 
     private sendTextNotification() {
-        let guid: string = Guid.create().toString() + Guid.create().toString();
-        CustomNotification.getTextInputFromNotification(guid, "Example Title", "This is my message",
+        CustomNotification.getTextInputFromNotification("Example Title", "This is my message",
             {
                 inputOptions: {
                     placeholder: "Bitte gebe einen Text ein",
-                    regex: /abc/gm,
-                    validationErrorMessage: "Please enter 'abc'"
+                    regex: /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u00a1-\uffff][a-z0-9\u00a1-\uffff_-]{0,62})?[a-z0-9\u00a1-\uffff]\.)+(?:[a-z\u00a1-\uffff]{2,}\.?))(?::\d{2,5})?(?:[/?#]\S*)?$/i,
+                    validationErrorMessage: "Please enter a valid url!"
                 } as iTextInputOptions,
                 submitButtonLabel: "Submit",
                 type: null,
@@ -71,8 +68,7 @@ export default class Main extends React.Component<MainProps, MainState> {
     }
 
     private sendBooleanButtonNotification() {
-        let guid: string = Guid.create().toString() + Guid.create().toString();
-        CustomNotification.getBooleanInputFromNotification(guid, "Example Title", "Sind die Notifications cool?",
+        CustomNotification.getBooleanInputFromNotification("Example Title", "Sind die Notifications cool?",
             {
                 inputOptions: {
                     displayType: BooleanDisplayType.Buttons,
@@ -87,8 +83,8 @@ export default class Main extends React.Component<MainProps, MainState> {
     }
 
     private sendBooleanDropDownNotification() {
-        let guid: string = Guid.create().toString() + Guid.create().toString();
-        CustomNotification.getBooleanInputFromNotification(guid, "Example Title", "Sind die Notifications cool?",
+
+        CustomNotification.getBooleanInputFromNotification("Example Title", "Sind die Notifications cool?",
             {
                 inputOptions: {
                     displayType: BooleanDisplayType.DropDown,
@@ -99,11 +95,12 @@ export default class Main extends React.Component<MainProps, MainState> {
                 type: null,
                 requireInput: true
             } as iCustomAction
-        ).then(console.log).catch((err: CustomError) => { console.log(err.getErrorMessage()) });
+        )
+            .then(console.log)
+            .catch((err: CustomError) => { console.log(err.getErrorMessage()) });
     }
     private sendBooleanToggleNotification() {
-        let guid: string = Guid.create().toString() + Guid.create().toString();
-        CustomNotification.getBooleanInputFromNotification(guid, "Example Title", "Sind die Notifications cool?",
+        CustomNotification.getBooleanInputFromNotification("Example Title", "Sind die Notifications cool?",
             {
                 inputOptions: {
                     displayType: BooleanDisplayType.Toggle,
@@ -118,8 +115,7 @@ export default class Main extends React.Component<MainProps, MainState> {
     }
 
     private sendChoiceNotification() {
-        let guid: string = Guid.create().toString() + Guid.create().toString();
-        CustomNotification.getChoiceInputFromNotification(guid, "Example Title", "This is my message",
+        CustomNotification.getChoiceInputFromNotification("Example Title", "This is my message",
             {
                 inputOptions: {
                     options: [
@@ -153,7 +149,7 @@ export default class Main extends React.Component<MainProps, MainState> {
                             "address": "" // TODO: Enter your E-Mail here 
                         }
                     }
-                   
+
                 ]
             }
         });
@@ -166,4 +162,5 @@ export default class Main extends React.Component<MainProps, MainState> {
     private loginUser() {
         MicrosoftAuthenticationProvider.login().then(() => { console.info("Login successfull 👍") })
     }
+
 }

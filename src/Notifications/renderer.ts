@@ -5,11 +5,9 @@ import "./footer";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { initializeIcons } from "@fluentui/react";
-import Footer from "./Footer/Footer";
+import Footer, { FooterProps } from "./Footer/Footer";
 import NotificationTitleBar, { iNotificationTitleBarProps } from "./TitleBar/NotificationTitleBar";
 import NotificationBody, { iNotificationBodyProps } from "./NotificationBody/NotificationBody";
-import { notificationsApiInternalRender } from "./notificationApiInternalRenderer";
-import { CustomError } from "../helper/CustomError";
 import { ipcRenderer } from "electron";
 import { iCustomNotification } from "./interfaces";
 import { NotificationChannelNames } from "./EventConstants";
@@ -36,6 +34,6 @@ ipcRenderer.once(NotificationChannelNames.recieveProps, (event: Electron.IpcRend
         // Renders the notification-body
         ReactDOM.render(React.createElement(NotificationBody, { guid, notification } as iNotificationBodyProps), document.querySelector("#Main"));
         // Renders the notifiaction-footer
-        ReactDOM.render(React.createElement(Footer), document.querySelector("#Footer"));
+        ReactDOM.render(React.createElement(Footer, { text: "Created by Timo Woityschyn" } as FooterProps), document.querySelector("#Footer"));
     }
 });

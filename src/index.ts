@@ -1,10 +1,9 @@
-import { app, BrowserWindow } from 'electron';
-import "./MainProcess/windowApiMain";
-import "./MainProcess/devApiMain";
-import "./Notifications/notificationApiInternalMain";
-import "./MainProcess/MicrosoftAuthenticationMain";
-import { authenticateUser, setAccessToken } from "./MainProcess/MicrosoftAuthenticationMain";
 import * as env from "dotenv";
+import { app, BrowserWindow } from 'electron';
+import "./MainProcess/devApiMain";
+import "./MainProcess/MicrosoftAuthenticationMain";
+import "./MainProcess/windowApiMain";
+import "./Notifications/notificationApiInternalMain";
 
 env.config();
 

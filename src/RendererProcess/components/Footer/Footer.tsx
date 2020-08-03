@@ -1,18 +1,45 @@
+import { Stack, Text } from "@fluentui/react";
 import React from "react";
-import { Text, Stack} from "@fluentui/react";
+
 
 /**
- * Defines the Footer component
+ * The Properties of the Footer
  *
  * @export
- * @class Footer
- * @extends {React.Component<{}, {}>}
+ * @interface FooterProps
  */
-export default class Footer extends React.Component<{}, {}> {
+export interface FooterProps {
+    /**
+     *The text to display on the footer
+     *
+     * @type {string}
+     * @memberof FooterProps
+     */
+    text: string;
+}
+
+/**
+ * The state od the footer
+ *
+ * @interface FooterState
+ */
+interface FooterState {
+}
+/**
+ * the footer of the notification
+ *
+ * @export
+ * @class Main
+ * @extends {React.Component<FooterProps, FooterState>}
+ */
+export default class Footer extends React.Component<FooterProps, FooterState> {
+
+    constructor(props: FooterProps) {
+        super(props);
+    }
 
     public render(): JSX.Element {
-        return (
-            <Stack horizontal horizontalAlign={"center"}><Text variant={"tiny"}>Created by Timo Woityschyn</Text></Stack>
-        );
+        return (<Stack horizontal horizontalAlign={"center"}><Text variant={"tiny"}>{this.props.text}</Text></Stack>);
     }
+
 }
