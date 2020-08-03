@@ -4,14 +4,14 @@
 
   ```json
   {
-      "name": "YOUR_APP_NAME",
-      "productName": "YOUR_APP_PRODUCT_NAME"
+     "name": "YOUR_APP_NAME",
+     "productName": "YOUR_APP_PRODUCT_NAME"
   }
   ```
 
   ```html
   <head>
-      <title>YOUR_APP_NAME</title>
+     <title>YOUR_APP_NAME</title>
   </head>
   ```
 
@@ -49,27 +49,27 @@
   {
   "config": {
 
-      "forge": {
-          "packagerConfig": {
-              "icon": "THE_PATH_TO_YOUR_APP_ICON"
-          }
-      }
+     "forge": {
+         "packagerConfig": {
+             "icon": "THE_PATH_TO_YOUR_APP_ICON"
+         }
+     }
   }
   ```
 
 2. Start writing your code:
 
-  1. Set electron configuration in [index.ts](/src/index.ts).
+    a. Set electron configuration in [index.ts](/src/index.ts).
 
-    **IMPORTANT: Do not turn on webSecurity when running `npm run production` , `npm run make` or `npm run publish` , as it will result in not showing your selected HTML-Site.**
+    **IMPORTANT: Do not turn on webSecurity when running** `npm run production` **,** `npm run make` **or** `npm run publish`**, as it will result in not showing your selected HTML-Site.**
 
-  2. To run code in WebContext use [renderer.ts](/src/renderer.ts).
+    b. To run code in WebContext use [renderer.ts](/src/renderer.ts).
 
-  3. Change the contents of the [index.html](/src/index.html) according to your needs.
+    c. Change the contents of the [index.html](/src/index.html) according to your needs.
 
 3. You can add packages according to your needs with `npm i --save YOUR_PACKAGE_NAME` or if its a developement-tool with `npm i --save-dev YOUR_PACKAGE_NAME` .
 
-4. In order to interact with the MicrosoftGraph properly, crreate a file [.env](/.env). Add the following variables:
+4. In order to interact with the MicrosoftGraph during developement properly, create a file [.env](/.env). Add the following code and fill out the placeholders:
 
 ```bash
 REDIRECT_URL=<Your redirecht url of the client>
