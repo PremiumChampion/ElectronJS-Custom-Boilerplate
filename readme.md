@@ -1,6 +1,8 @@
 # Configuration for your new electronjs app
 
-1\. Edit the name of your product in [package.json](./package.json) and the title of the [index.html](/src/index.html):
+## 1\. Configure your project
+
+A\. Edit the name of your product in [package.json](./package.json) and the title of the [index.html](/src/index.html):
 
   ```json
   {
@@ -15,15 +17,14 @@
   </head>
   ```
 
-2\. Edit Description of your project in [package.json](./package.json):
+B\. Edit Description of your project in [package.json](./package.json):
 
 ```json
 {
     "description": "YOUR_APP_DESCRIPTION"
 }
 ```
-
-3\. Add author information to your project in the [package.json](./package.json):
+C\. Add author information to your project in the [package.json](./package.json):
 
 ```json
 {
@@ -35,7 +36,7 @@
 }
 ```
 
-4\. Select youre license [(List of licenses)](https://spdx.org/licenses/):
+D\. Select youre license [(List of licenses)](https://spdx.org/licenses/):
 
 ```json
 {
@@ -43,7 +44,7 @@
 }
 ```
 
-5\. Set your app icon:
+E\. Set your app icon:
 
   ```json
   {
@@ -57,19 +58,21 @@
   }
   ```
 
-6\. Start writing your code:
+## 2\. Start writing your code
 
-    a. Set electron configuration in [index.ts](/src/index.ts).
+a. Set electron configuration in [index.ts](/src/index.ts).
 
-    **IMPORTANT: Do not turn on webSecurity when running** `npm run production` **,** `npm run make` **or** `npm run publish`**, as it will result in not showing your selected HTML-Site.**
+**IMPORTANT: Do not turn on webSecurity when running** `npm run production` **,** `npm run make` **or** `npm run publish`**, as it will result in not showing your selected HTML-Site.**
 
-    b. To run code in WebContext use [renderer.ts](/src/renderer.ts).
+b. To run code in WebContext use [renderer.ts](/src/renderer.ts).
 
-    c. Change the contents of the [index.html](/src/index.html) according to your needs.
+c. Change the contents of the [index.html](/src/index.html) according to your needs.
 
-7\. You can add packages according to your needs with `npm i --save YOUR_PACKAGE_NAME` or if its a developement-tool with `npm i --save-dev YOUR_PACKAGE_NAME` .
+d\. You can add packages according to your needs with `npm i --save YOUR_PACKAGE_NAME` or if its a developement-tool with `npm i --save-dev YOUR_PACKAGE_NAME` .
 
-8\. Register an Application in Azure [Source](https://www.linkedin.com/pulse/create-electron-application-interact-sharepoint-using-raman)
+## 3. Connect to Microsoft-Services
+
+### A\. Register an Application in Azure ([Source](https://www.linkedin.com/pulse/create-electron-application-interact-sharepoint-using-raman))
 
 Create \ Register an Azure Application and Grant the required permission.
 Follow the steps specified below to register a new application and assign the required permission.
@@ -94,7 +97,9 @@ Click Register.
 
 ![Registering an Application in Azure](img/readme/TenantInformation.png)
 
-9\. In order to interact with the MicrosoftGraph during developement properly, create a file [.env](/.env). Add the following code and fill out the placeholders with the Information above:
+### B\. Apply generated information to your project
+
+In order to interact with the MicrosoftGraph during developement properly, create a file [.env](/.env). Add the following code and fill out the placeholders with the Information above:
 
 ```bash
 REDIRECT_URL=<Your redirecht url of the client>
