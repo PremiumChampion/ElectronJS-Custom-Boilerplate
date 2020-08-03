@@ -1,16 +1,16 @@
-import "./index.css";
-import "./titlebar.css"
-import "./main.css"
-import "./footer";
+import { initializeIcons } from "@fluentui/react";
+import { ipcRenderer } from "electron";
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { initializeIcons } from "@fluentui/react";
-import Footer, { FooterProps } from "./Footer/Footer";
-import NotificationTitleBar, { iNotificationTitleBarProps } from "./TitleBar/NotificationTitleBar";
-import NotificationBody, { iNotificationBodyProps } from "./NotificationBody/NotificationBody";
-import { ipcRenderer } from "electron";
-import { iCustomNotification } from "./interfaces";
+import "./css/footer.css";
+import "./css/index.css";
+import "./css/main.css";
+import "./css/titlebar.css";
 import { NotificationChannelNames } from "./EventConstants";
+import Footer, { FooterProps } from "./Footer/Footer";
+import { iCustomNotification } from "./interfaces";
+import NotificationBody, { iNotificationBodyProps } from "./NotificationBody/NotificationBody";
+import NotificationTitleBar, { iNotificationTitleBarProps } from "./TitleBar/NotificationTitleBar";
 
 initializeIcons();
 
