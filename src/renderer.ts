@@ -19,8 +19,6 @@ let clientOptions: ClientOptions = {
 };
 const client = Client.initWithMiddleware(clientOptions);
 
-client.api("/me").get().then(console.log).catch(console.log)
-
 ReactDOM.render(React.createElement(TitleBar, { title: "Custom Benachrichtigungen by TWo" }), document.querySelector("#TitleBar"));
 ReactDOM.render(React.createElement(Main, { GraphClient: client } as MainProps), document.querySelector("#Main"));
 ReactDOM.render(React.createElement(Footer), document.querySelector("#Footer"));

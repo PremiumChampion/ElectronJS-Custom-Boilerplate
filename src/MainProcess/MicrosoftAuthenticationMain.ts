@@ -110,3 +110,53 @@ ipcMain.on("get-access-token", (event: Electron.IpcMainEvent, guid: string) => {
             });
     }
 });
+
+
+export const logoutUser: () => Promise<null> = () => {
+    return new Promise<null>((resolve, reject) => {
+        let logoutWindow = new BrowserWindow(
+            {
+                alwaysOnTop: true, // keeps this window on top of others
+                modal: true,
+                autoHideMenuBar: true,
+                parent: mainWindow,
+                frame: true,
+                show: false,
+                webPreferences: {
+                    nodeIntegration: false, // No need to specify these if Electron v4+ but showing for demo
+                    contextIsolation: true, // we can isolate this window
+                    devTools: false
+                },
+
+            }
+        );
+
+        logoutWindow.on('closed', () => {
+            logoutWindow = null;
+        });
+
+        logoutWindow.setMenu(null);
+
+        let filter = { urls: [process.env.REDIRECT_URL] };
+
+        logoutWindow.webContents.on('did-finish-load', () => {
+            // logoutWindow.show();
+        });
+        if (process.env.TENANT_ID && process.env.CLIENT_ID && process.env.RESOURCE && process.env.REDIRECT_URL) {
+            logoutWindow.loadURL(`https://login.microsoftonline.com/common/oauth2/logout?client_id=${process.env.CLIENT_ID}&response_mode=form_post&post_logout_redirect_uri=${process.env.REDIRECT_URL}`)
+        } else {
+            reject(new CustomError("One or more enviroment variables are undefined. Please adjust production or developement eviroment and try running microsoft logout again", "export const logoutUser: () => Promise<null>", new Error("Enviroment variables are undefined")));
+        }
+
+        session.defaultSession.webRequest.onCompleted(filter, (details: Electron.OnCompletedListenerDetails) => {
+            logoutWindow.close();
+            resolve(null);
+        });
+    });
+}
+
+
+ipcMain.on("logout", (event: Electron.IpcMainEvent, guid: string) => {
+    setAccessToken(null);
+    logoutUser().then(() => { event.sender.send(guid, null) });
+});

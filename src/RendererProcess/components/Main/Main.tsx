@@ -6,6 +6,7 @@ import { Guid } from "guid-typescript";
 import { iCustomAction, iTextInputOptions, iBooleanInputOptions, iChoiceInputOptions } from "./../../../Notifications/interfaces";
 import { BooleanDisplayType } from "./../../../Notifications/enums";
 import { Client } from "@microsoft/microsoft-graph-client";
+import { MicrosoftAuthenticationProvider } from "./../../MicrosoftAuthenticationRenderer";
 
 export interface MainProps {
     GraphClient: Client;
@@ -36,6 +37,8 @@ export default class Main extends React.Component<MainProps, MainState> {
                     <DefaultButton onClick={this.sendBooleanDropDownNotification.bind(this)}>GetBooleanDropDownInput</DefaultButton>
                     <DefaultButton onClick={this.sendChoiceNotification.bind(this)}>GetChoiceInput</DefaultButton>
                     <DefaultButton onClick={this.SendMail.bind(this)}>SendMail</DefaultButton>
+                    <DefaultButton onClick={this.logoutUser.bind(this)}>Logout</DefaultButton>
+                    <DefaultButton onClick={this.loginUser.bind(this)}>Login</DefaultButton>
                 </Stack>
             </div>
         );
@@ -56,8 +59,8 @@ export default class Main extends React.Component<MainProps, MainState> {
             {
                 inputOptions: {
                     placeholder: "Bitte gebe einen Text ein",
-                    // regex: /abc/gm,
-                    // validationErrorMessage: "Please enter 'abc'"
+                    regex: /abc/gm,
+                    validationErrorMessage: "Please enter 'abc'"
                 } as iTextInputOptions,
                 submitButtonLabel: "Submit",
                 type: null,
@@ -66,6 +69,7 @@ export default class Main extends React.Component<MainProps, MainState> {
         ).then(console.log).catch((err: CustomError) => { console.log(err.getErrorMessage()) });
 
     }
+
     private sendBooleanButtonNotification() {
         let guid: string = Guid.create().toString() + Guid.create().toString();
         CustomNotification.getBooleanInputFromNotification(guid, "Example Title", "Sind die Notifications cool?",
@@ -138,10 +142,10 @@ export default class Main extends React.Component<MainProps, MainState> {
     private SendMail() {
         this.props.GraphClient.api("/me/sendMail").post({
             "message": {
-                "subject": "", //TODO: Enter the Subject of your email
+                "subject": "Test", //TODO: Enter the Subject of your email
                 "body": {
-                    "contentType": "Text", //TODO: Adjust the contenttype of youre message 
-                    "content": "" //TODO: Enter your message here
+                    "contentType": "html", //TODO: Adjust the contenttype of youre message 
+                    "content": "<h1>Das hier ist meine Überschrift</h1><hr /><p>Und mein content</p>" //TODO: Enter your message here
                 },
                 "toRecipients": [
                     {
@@ -149,8 +153,17 @@ export default class Main extends React.Component<MainProps, MainState> {
                             "address": "" // TODO: Enter your E-Mail here 
                         }
                     }
+                   
                 ]
             }
         });
+    }
+
+    private logoutUser() {
+        MicrosoftAuthenticationProvider.logout().then(() => { console.info("Logout successfull 👍") })
+    }
+
+    private loginUser() {
+        MicrosoftAuthenticationProvider.login().then(() => { console.info("Login successfull 👍") })
     }
 }
