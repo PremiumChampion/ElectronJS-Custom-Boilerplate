@@ -50,8 +50,7 @@ export class MicrosoftAuthenticationProvider implements AuthenticationProvider {
                 if (accessToken != null && typeof accessToken == "string") {
                     resolve(true);
                 } else {
-                    new CustomError("Authentication failed", "public static login(): Promise<boolean>", error);
-                    reject(false);
+                    reject(new CustomError("Authentication failed", "public static login(): Promise<boolean>", error));
                 }
             });
 

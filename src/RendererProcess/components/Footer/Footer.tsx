@@ -1,5 +1,6 @@
 import { Stack, Text } from "@fluentui/react";
 import React from "react";
+import "./footer.css"
 
 
 /**

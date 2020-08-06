@@ -4,6 +4,7 @@ import TitleBarButton, { TitleBarButtonType } from "./TitleBarButton";
 import { windowApiRenderer } from "../../windowApiRender";
 import { CustomError } from "../../../helper/CustomError";
 import { devApiRenderer } from "../../devApiRenderer";
+import "./titlebar.css"
 
 
 /**

@@ -1,9 +1,6 @@
 import * as env from "dotenv";
 import { app, BrowserWindow } from 'electron';
-import "./MainProcess/devApiMain";
-import "./MainProcess/MicrosoftAuthenticationMain";
-import "./MainProcess/windowApiMain";
-import "./Notifications/notificationApiInternalMain";
+import "./MainProcess/mainDependencies";
 
 env.config();
 
@@ -53,11 +50,7 @@ app.setAppUserModelId(process.execPath)
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  
   createWindow();
-  // authenticateUser().then((accessToken) => {
-  //   setAccessToken(accessToken);
-  // });
 });
 
 // Quit when all windows are closed.

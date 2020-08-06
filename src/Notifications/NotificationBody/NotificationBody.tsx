@@ -3,6 +3,7 @@ import { Text, Stack, Toggle, DefaultButton, IToggle, IRefObject, PrimaryButton,
 import { notificationsApiInternalRender } from "../notificationApiInternalRenderer";
 import { iCustomNotification, iBooleanInputOptions, iTextInputOptions, iChoiceInputOptions } from "../interfaces";
 import { customActionInputType, BooleanDisplayType } from "../enums";
+import "./main.css";
 
 const defaultStackProps: IStackProps = {
     gap: 5
