@@ -192,7 +192,7 @@ export default class Main extends React.Component<MainProps, MainState> {
                 "toRecipients": [
                     {
                         "emailAddress": {
-                            "address": "" // TODO: Enter your E-Mail here 
+                            "address": "t.woityschyn@outlook.de" // TODO: Enter your E-Mail here 
                         }
                     }
                 ]
