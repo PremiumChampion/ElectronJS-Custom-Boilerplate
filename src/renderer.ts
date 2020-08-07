@@ -8,6 +8,7 @@ import Main, { MainProps } from './RendererProcess/components/Main/Main';
 import TitleBar from "./RendererProcess/components/TitleBar/TitleBar";
 import { MicrosoftAuthenticationProvider } from "./RendererProcess/MicrosoftAuthenticationRenderer";
 
+
 initializeIcons();
 
 let clientOptions: ClientOptions = {
@@ -15,7 +16,8 @@ let clientOptions: ClientOptions = {
 };
 const MSGraphClient = Client.initWithMiddleware(clientOptions);
 
-
 ReactDOM.render(React.createElement(TitleBar, { title: "ElectronJS-Custom-Boilerplate" }), document.querySelector("#TitleBar"));
 ReactDOM.render(React.createElement(Main, { GraphClient: MSGraphClient } as MainProps), document.querySelector("#Main"));
 ReactDOM.render(React.createElement(Footer, { text: "Created by Timo Woityschyn" } as FooterProps), document.querySelector("#Footer"));
+
+

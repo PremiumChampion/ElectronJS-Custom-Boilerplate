@@ -4,6 +4,7 @@
 
 #Main {
     height: calc(100% - 34px);
+    overflow-y: scroll;
 }
 
 #Main,

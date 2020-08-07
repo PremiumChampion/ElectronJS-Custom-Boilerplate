@@ -7,6 +7,7 @@ import { BooleanDisplayType } from "./../../../Notifications/enums";
 import { iBooleanInputOptions, iChoiceInputOptions, iCustomAction, iTextInputOptions } from "./../../../Notifications/interfaces";
 import { MicrosoftAuthenticationProvider } from "./../../MicrosoftAuthenticationRenderer";
 import "./main.css"
+import Email from "../Emails/emails";
 /**
  * The Properties for the Main Component
  *
@@ -48,6 +49,8 @@ interface MainState {
  */
 export default class Main extends React.Component<MainProps, MainState> {
 
+    private mailComponent: Email;
+
     constructor(props: MainProps) {
         super(props);
         this.state = {
@@ -83,6 +86,7 @@ export default class Main extends React.Component<MainProps, MainState> {
                     <DefaultButton onClick={this.SendMail.bind(this)}>SendMail</DefaultButton>
                     <DefaultButton onClick={this.logoutUser.bind(this)}>Logout</DefaultButton>
                     <DefaultButton onClick={this.loginUser.bind(this)}>Login</DefaultButton>
+                    <Email ref={a => this.mailComponent = a} GraphClient={this.props.GraphClient} />
                 </Stack>
             </div>
         );
@@ -181,24 +185,33 @@ export default class Main extends React.Component<MainProps, MainState> {
             .catch((err: CustomError) => { this.setState({ err }); });
     }
 
-    private SendMail() {
+    private async SendMail() {
+        let email: string;
+        try {
+            email = (await this.props.GraphClient.api("/me/mail").get()).value;
+        } catch (err) {
+            return;
+        }
         this.props.GraphClient.api("/me/sendMail").post({
-            "message": {
-                "subject": "Test", //TODO: Enter the Subject of your email
-                "body": {
-                    "contentType": "html", //TODO: Adjust the contenttype of your message 
-                    "content": "<h1>This here is my headline</h1><hr /><p>And my Comtent</p>" //TODO: Enter your message here
+            message: {
+                subject: "Test", //TODO: Enter the Subject of your email
+                body: {
+                    contentType: "html", //TODO: Adjust the contenttype of your message 
+                    content: "<h1>This here is my headline</h1><hr /><p>And my Comtent</p>" //TODO: Enter your message here
                 },
-                "toRecipients": [
+                toRecipients: [
                     {
-                        "emailAddress": {
-                            "address": "" // TODO: Enter your E-Mail here 
+                        emailAddress: {
+                            address: email // TODO: Enter your E-Mail here
                         }
                     }
                 ]
             }
         })
-            .then((_) => { console.log("Email sent successfully ✔") })
+            .then((_) => {
+                console.log("Email sent successfully ✔");
+                setTimeout(this.mailComponent.loadMails.bind(this.mailComponent), 1500);
+            })
             .catch(err => { this.setState({ err: new CustomError("An error occured while sending the email.", "private SendMail()", err) }); });
     }
 

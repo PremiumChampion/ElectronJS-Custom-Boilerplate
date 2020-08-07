@@ -102,8 +102,8 @@ Click Register.
 In order to interact with the MicrosoftGraph during developement properly, create a file [.env](/.env). Add the following code and fill out the placeholders with the Information above:
 
 ```bash
-REDIRECT_URL=<Your redirecht url of the client>
+REDIRECT_URL=<Your redirect url of the client>
 TENANT_ID=<The id of your Microsoft tenant>
 CLIENT_ID=<The id of your Client application>
-RESOURCE=<The id of the resource>
+RESOURCE=<The url of the resource>
 ```
