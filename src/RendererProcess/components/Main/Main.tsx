@@ -5,9 +5,9 @@ import { CustomError } from "../../../helper/CustomError";
 import { CustomNotification } from "../../NotificationsRenderer";
 import { BooleanDisplayType } from "./../../../Notifications/enums";
 import { iBooleanInputOptions, iChoiceInputOptions, iCustomAction, iTextInputOptions } from "./../../../Notifications/interfaces";
-import { MicrosoftAuthenticationProvider } from "./../../MicrosoftAuthenticationRenderer";
+import { MicrosoftAuthenticationProvider } from "../../MicrosoftAuthenticationProvider";
 import "./main.css"
-import Email from "../Emails/emails";
+import EmailComponent from "../Emails/EmailComponent";
 /**
  * The Properties for the Main Component
  *
@@ -49,7 +49,7 @@ interface MainState {
  */
 export default class Main extends React.Component<MainProps, MainState> {
 
-    private mailComponent: Email;
+    private mailComponent: EmailComponent;
 
     constructor(props: MainProps) {
         super(props);
@@ -86,7 +86,7 @@ export default class Main extends React.Component<MainProps, MainState> {
                     <DefaultButton onClick={this.SendMail.bind(this)}>SendMail</DefaultButton>
                     <DefaultButton onClick={this.logoutUser.bind(this)}>Logout</DefaultButton>
                     <DefaultButton onClick={this.loginUser.bind(this)}>Login</DefaultButton>
-                    <Email ref={a => this.mailComponent = a} GraphClient={this.props.GraphClient} />
+                    <EmailComponent ref={a => this.mailComponent = a} GraphClient={this.props.GraphClient} />
                 </Stack>
             </div>
         );
@@ -107,8 +107,10 @@ export default class Main extends React.Component<MainProps, MainState> {
                 submitButtonLabel: "Submit",
                 type: null,
                 requireInput: false
-            } as iCustomAction
-        ).then(console.log).catch((err: CustomError) => { console.log(err.getErrorMessage()) });
+            } as iCustomAction)
+
+            .then(console.log)
+            .catch((err: CustomError) => { console.log(err.getErrorMessage()) });
 
     }
 
@@ -210,6 +212,7 @@ export default class Main extends React.Component<MainProps, MainState> {
         })
             .then((_) => {
                 console.log("Email sent successfully ✔");
+                // refreshes the users inbox
                 setTimeout(this.mailComponent.loadMails.bind(this.mailComponent), 1500);
             })
             .catch(err => { this.setState({ err: new CustomError("An error occured while sending the email.", "private SendMail()", err) }); });

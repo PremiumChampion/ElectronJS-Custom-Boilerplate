@@ -6,7 +6,7 @@ import "./index.css";
 import Footer, { FooterProps } from "./RendererProcess/components/Footer/Footer";
 import Main, { MainProps } from './RendererProcess/components/Main/Main';
 import TitleBar from "./RendererProcess/components/TitleBar/TitleBar";
-import { MicrosoftAuthenticationProvider } from "./RendererProcess/MicrosoftAuthenticationRenderer";
+import { MicrosoftAuthenticationProvider } from "./RendererProcess/MicrosoftAuthenticationProvider";
 
 
 initializeIcons();
@@ -19,5 +19,4 @@ const MSGraphClient = Client.initWithMiddleware(clientOptions);
 ReactDOM.render(React.createElement(TitleBar, { title: "ElectronJS-Custom-Boilerplate" }), document.querySelector("#TitleBar"));
 ReactDOM.render(React.createElement(Main, { GraphClient: MSGraphClient } as MainProps), document.querySelector("#Main"));
 ReactDOM.render(React.createElement(Footer, { text: "Created by Timo Woityschyn" } as FooterProps), document.querySelector("#Footer"));
-
 
