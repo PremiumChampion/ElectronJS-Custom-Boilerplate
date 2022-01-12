@@ -97,7 +97,7 @@
         "dotenv": "^8.2.0",
         "electron-squirrel-startup": "^1.0.0",
         "guid-typescript": "^1.0.9",
-        "markdown-it": "^11.0.0",
+        "markdown-it": "^12.3.2",
         "react": "^16.13.1",
         "react-dom": "^16.13.1"
     }
